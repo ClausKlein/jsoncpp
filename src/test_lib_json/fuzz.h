@@ -7,7 +7,7 @@
 #define FUZZ_H_INCLUDED
 
 #include <cstddef>
-#include <stdint.h>
+#include <cstdint>
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size);
 

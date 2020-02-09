@@ -42,8 +42,9 @@ if(PYTHONINTERP_FOUND)
         COMMAND "${PYTHON_EXECUTABLE}" -B "${RUNJSONTESTS_PATH}" $<TARGET_FILE:jsontestrunner_exe> "${TEST_DIR}/data"
         WORKING_DIRECTORY "${TEST_DIR}/data"
     )
-    add_test(NAME jsoncpp_readerwriter_json_checker
-        COMMAND "${PYTHON_EXECUTABLE}" -B "${RUNJSONTESTS_PATH}" --with-json-checker  $<TARGET_FILE:jsontestrunner_exe> "${TEST_DIR}/data"
-        WORKING_DIRECTORY "${TEST_DIR}/data"
-    )
+    # NO! as like ../../meson.build! CK
+    # add_test(NAME jsoncpp_readerwriter_json_checker
+    #     COMMAND "${PYTHON_EXECUTABLE}" -B "${RUNJSONTESTS_PATH}" --with-json-checker  $<TARGET_FILE:jsontestrunner_exe> "${TEST_DIR}/data"
+    #     WORKING_DIRECTORY "${TEST_DIR}/data"
+    # )
 endif()
