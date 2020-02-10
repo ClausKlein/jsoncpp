@@ -19,12 +19,12 @@ def gettime(command):
 
 def measure():
     measurements = [
-        ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && cd build-cmake && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release ..',
-            'cd build-cmake && make -j 4', 'cd build-cmake && make -j 4 clean'],
-        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && cd build-cmake-ninja && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja ..',
-            'cd build-cmake-ninja && ninja -j 4', 'cd build-cmake-ninja && ninja -j 4 clean'],
+        #NO! ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -B build-cmake',
+            # 'make -C build-cmake -j 4', 'make -C build-cmake -j 4 clean'],
+        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja -B build-cmake-ninja',
+            'ninja -C build-cmake-ninja', 'ninja -C build-cmake-ninja clean'],
         ['meson', 'rm -rf build-meson && mkdir -p build-meson && CXX=\'ccache g++\' meson build-meson',
-            'ninja -C build-meson -j 4', 'ninja -C build-meson -j 4 clean'],
+            'ninja -C build-meson ', 'ninja -C build-meson clean'],
     ]
     results = []
     for m in measurements:
