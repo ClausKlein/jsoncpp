@@ -105,3 +105,34 @@ test(
         jsontestrunner,
         join_paths(meson.current_source_dir(), 'test/data')]
 )
+
+# example/
+# ├── CMakeLists.txt
+# ├── readFromStream
+# │   ├── errorFormat.json
+# │   ├── readFromStream.cpp
+# │   └── withComment.json
+# ├── readFromString
+# │   └── readFromString.cpp
+# ├── README.md
+# ├── streamWrite
+# │   └── streamWrite.cpp
+# └── stringWrite
+#     └── stringWrite.cpp
+progs = [['readFromString', []],
+         ['readFromStream', []],
+         ['stringWrite', []],
+         ['streamWrite', []],
+        ]
+
+foreach p : progs
+    exe = 'jsoncpp_example_'+ p[0]
+    exe = executable(
+        exe, files(['example/'+ p[0] + '/' + p[0] + '.cpp']),
+        include_directories: jsoncpp_include_directories,
+        link_with: jsoncpp_lib,
+        install: false,
+        cpp_args: dll_import_flag
+    )
+endforeach
+

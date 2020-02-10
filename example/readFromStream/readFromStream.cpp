@@ -14,6 +14,11 @@
  * // comment tail
  */
 int main(int argc, char* argv[]) {
+  if (argc < 2) {
+    std::cout << "ERROR, missing parameter!" << std::endl;
+    return EXIT_FAILURE;
+  }
+
   Json::Value root;
   std::ifstream ifs;
   ifs.open(argv[1]);
@@ -25,6 +30,7 @@ int main(int argc, char* argv[]) {
     std::cout << errs << std::endl;
     return EXIT_FAILURE;
   }
+
   std::cout << root << std::endl;
   return EXIT_SUCCESS;
 }

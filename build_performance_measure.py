@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 -tt
+#!/usr/bin/python3 -tt
 
 import sys
 import os
@@ -19,12 +19,12 @@ def gettime(command):
 
 def measure():
     measurements = [
-        ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && cd build-cmake && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release ..',
-            'cd build-cmake && make -j 2', 'cd build-cmake && make -j 2 clean'],
-        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && cd build-cmake-ninja && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja ..',
-            'cd build-cmake-ninja && ninja -j 2', 'cd build-cmake-ninja && ninja -j 2 clean'],
-        ['meson', 'rm -rf build-meson && mkdir -p build-meson && CC=\'ccache g++\' meson build-meson',
-            'ninja -C build-meson -j 2', 'ninja -C build-meson -j 2 clean'],
+        ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && cd build-cmake && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release ..',
+            'cd build-cmake && make -j 4', 'cd build-cmake && make -j 4 clean'],
+        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && cd build-cmake-ninja && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja ..',
+            'cd build-cmake-ninja && ninja -j 4', 'cd build-cmake-ninja && ninja -j 4 clean'],
+        ['meson', 'rm -rf build-meson && mkdir -p build-meson && CXX=\'ccache g++\' meson build-meson',
+            'ninja -C build-meson -j 4', 'ninja -C build-meson -j 4 clean'],
     ]
     results = []
     for m in measurements:

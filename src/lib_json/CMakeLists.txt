@@ -1,14 +1,14 @@
-if(CMAKE_COMPILER_IS_GNUCXX)
-    #Get compiler version.
-    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
-        OUTPUT_VARIABLE GNUCXX_VERSION
-    )
-
-    #-Werror=* was introduced -after- GCC 4.1.2
-    if(GNUCXX_VERSION VERSION_GREATER 4.1.2)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=strict-aliasing")
-    endif()
-endif()
+# if(CMAKE_COMPILER_IS_GNUCXX)
+#     #Get compiler version.
+#     execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion
+#         OUTPUT_VARIABLE GNUCXX_VERSION
+#     )
+# 
+#     #-Werror=* was introduced -after- GCC 4.1.2
+#     if(GNUCXX_VERSION VERSION_GREATER 4.1.2)
+#         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=strict-aliasing")
+#     endif()
+# endif()
 
 include(CheckIncludeFileCXX)
 include(CheckTypeSize)

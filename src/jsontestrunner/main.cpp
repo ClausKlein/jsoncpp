@@ -60,13 +60,13 @@ static Json::String readInputTestFile(const char* path) {
   auto const size = ftell(file);
   auto const usize = static_cast<size_t>(size);
   fseek(file, 0, SEEK_SET);
-  auto buffer = new char[size + 1];
-  buffer[size] = 0;
+  auto buffer = new char[usize + 1];  // FIXME use make_shared or std::array! CK
+  buffer[usize] = 0;
   Json::String text;
   if (fread(buffer, 1, usize, file) == usize)
     text = buffer;
-  fclose(file);
-  delete[] buffer;
+  fclose(file);  // TODO not exception save! CK
+  delete[] buffer;  // TODO not exception save! CK
   return text;
 }
 
@@ -170,7 +170,7 @@ static int parseAndSaveValueTree(const Json::String& input,
       return 2;
     }
     printValueTree(factual, *root);
-    fclose(factual);
+    fclose(factual);  // TODO not exception save! CK
   }
   return 0;
 }
@@ -204,7 +204,7 @@ static int rewriteValueTree(const Json::String& rewritePath,
     return 2;
   }
   fprintf(fout, "%s\n", rewrite->c_str());
-  fclose(fout);
+  fclose(fout);  // TODO not exception save! CK
   return 0;
 }
 
