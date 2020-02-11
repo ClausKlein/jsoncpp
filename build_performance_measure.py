@@ -19,9 +19,9 @@ def gettime(command):
 
 def measure():
     measurements = [
-        #NO! ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -B build-cmake',
+        #NO! ['cmake-make', 'rm -rf build-cmake && mkdir -p build-cmake && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -B build-cmake .',
             # 'make -C build-cmake -j 4', 'make -C build-cmake -j 4 clean'],
-        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja -B build-cmake-ninja',
+        ['cmake-ninja', 'rm -rf build-cmake-ninja && mkdir -p build-cmake-ninja && CXX=g++ cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release -G Ninja -B build-cmake-ninja .',
             'ninja -C build-cmake-ninja', 'ninja -C build-cmake-ninja clean'],
         ['meson', 'rm -rf build-meson && mkdir -p build-meson && CXX=\'ccache g++\' meson build-meson',
             'ninja -C build-meson ', 'ninja -C build-meson clean'],
