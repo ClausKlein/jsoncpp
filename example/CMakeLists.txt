@@ -1,5 +1,4 @@
 #vim: et ts =4 sts = 4 sw = 4 tw = 0
-cmake_minimum_required(VERSION 3.1)
 
 set(EXAMPLES
     readFromString
@@ -23,7 +22,7 @@ endif()
 
 foreach(example ${EXAMPLES})
     add_executable(${example} ${example}/${example}.cpp)
-    target_include_directories(${example} PUBLIC ${CMAKE_SOURCE_DIR}/include)
+    #NO! target_include_directories(${example} PUBLIC ${CMAKE_SOURCE_DIR}/include)
     target_link_libraries(${example} jsoncpp_lib)
 endforeach()
 

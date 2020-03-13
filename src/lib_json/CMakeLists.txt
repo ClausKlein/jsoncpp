@@ -42,7 +42,7 @@ if(NOT (HAVE_CLOCALE AND HAVE_LCONV_SIZE AND HAVE_DECIMAL_POINT AND HAVE_LOCALEC
     endif()
 endif()
 
-set(JSONCPP_INCLUDE_DIR ../../include)
+set(JSONCPP_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 set(PUBLIC_HEADERS
     ${JSONCPP_INCLUDE_DIR}/json/config.h
@@ -82,11 +82,19 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 
+#XXX find_package(boost_headers 1.72) -> Boost::headers
+find_package(ZLIB)
+find_package(asio)
+#TBD find_package(fmt) -> fmt::fmt
+find_package(spdlog)
+
+
 add_library(jsoncpp_lib ${PUBLIC_HEADERS} ${jsoncpp_sources})
 set_target_properties(jsoncpp_lib PROPERTIES VERSION ${JSONCPP_VERSION} SOVERSION ${JSONCPP_SOVERSION})
 set_target_properties(jsoncpp_lib PROPERTIES OUTPUT_NAME jsoncpp
                         DEBUG_OUTPUT_NAME jsoncpp${DEBUG_LIBNAME_SUFFIX})
 set_target_properties(jsoncpp_lib PROPERTIES POSITION_INDEPENDENT_CODE ON)
+target_link_libraries(jsoncpp_lib PUBLIC asio::asio spdlog::spdlog)
 
 # Set library's runtime search path on OSX
 if(APPLE)
@@ -152,7 +160,7 @@ install(TARGETS jsoncpp_lib ${INSTALL_EXPORT}
 if(NOT CMAKE_VERSION VERSION_LESS 2.8.11)
     target_include_directories(jsoncpp_lib PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/${JSONCPP_INCLUDE_DIR}>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/json>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        #XXX $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/json>
     )
 endif()

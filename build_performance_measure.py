@@ -1,4 +1,6 @@
-#!/usr/bin/python3 -tt
+#!/usr/bin/env python
+
+## (-tt: issue errors) #!/usr/bin/python3 -tt
 
 import sys
 import os

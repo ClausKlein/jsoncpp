@@ -13,9 +13,9 @@ project(
     default_options: [
         'buildtype=release',
         'cpp_std=c++17',
-        'warning_level=1'],
+        'warning_level=3'],
     license: 'Public Domain',
-    meson_version: '>= 0.49.0')
+    meson_version: '>= 0.52.0')
 
 
 jsoncpp_headers = files([
@@ -30,12 +30,15 @@ jsoncpp_headers = files([
     'include/json/version.h',
     'include/json/writer.h',
 ])
-jsoncpp_include_directories = include_directories('include')
+
+#ORIG jsoncpp_include_directories = include_directories(['include'])
+jsoncpp_include_directories = include_directories(['include', 'dir1', 'dir2', 'dir2/../dir1', 'dir1/../dir1', 'dir2', 'dir1', 'include'])
 
 install_headers(
     jsoncpp_headers,
     subdir: 'json')
 
+#NOTE: added for test only! CK
 if get_option('default_library') == 'shared' and meson.get_compiler('cpp').get_id() == 'msvc'
     dll_export_flag = '-DJSON_DLL_BUILD'
     dll_import_flag = '-DJSON_DLL'
@@ -43,6 +46,16 @@ else
     dll_export_flag = []
     dll_import_flag = []
 endif
+
+
+#XXX boost_dep = dependency('boost', version : '>=1.72', include_type : 'system')
+#XXX z_dep = dependency('zlib', version : '>=1.2.8', include_type : 'system')
+# OR
+z_dep = dependency('ZLIB', method : 'cmake', modules : ['ZLIB::ZLIB'], include_type : 'non-system')
+asio_dep = dependency('asio', method : 'cmake', modules : ['asio::asio'], include_type : 'non-system')
+#TBD fmt_dep = dependency('fmt', method : 'cmake', modules : ['fmt::fmt'], include_type : 'system')
+spdlog_dep = dependency('spdlog', method : 'cmake', modules : ['spdlog::spdlog'], include_type : 'system')
+
 
 jsoncpp_lib = library(
     'jsoncpp', files([
@@ -53,6 +66,7 @@ jsoncpp_lib = library(
     soversion: 23,
     install: true,
     include_directories: jsoncpp_include_directories,
+    dependencies : [spdlog_dep, asio_dep, z_dep],
     cpp_args: dll_export_flag)
 
 import('pkgconfig').generate(
@@ -74,6 +88,7 @@ if meson.is_subproject() or not get_option('tests')
 endif
 
 python = import('python').find_installation('python3')
+
 
 jsoncpp_test = executable(
     'jsoncpp_test', files([

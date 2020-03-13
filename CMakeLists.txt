@@ -107,9 +107,7 @@ set(DEBUG_LIBNAME_SUFFIX "" CACHE STRING "Optional suffix to append to the libra
 
 set(JSONCPP_USE_SECURE_MEMORY "0" CACHE STRING "-D...=1 to use memory-wiping allocator for STL")
 
-configure_file("${PROJECT_SOURCE_DIR}/version.in"
-    "${PROJECT_BINARY_DIR}/version"
-    NEWLINE_STYLE UNIX)
+#NO! configure_file("${PROJECT_SOURCE_DIR}/version.in" "${PROJECT_BINARY_DIR}/version" NEWLINE_STYLE UNIX)
 
 macro(use_compilation_warning_as_error)
     if(MSVC)
@@ -137,7 +135,7 @@ macro(use_compilation_warning_as_error)
 endmacro()
 
 # Include our configuration header
-include_directories(${jsoncpp_SOURCE_DIR}/include)
+include_directories(${JSONCPP_SOURCE_DIR}/include)
 
 if(MSVC)
     # Only enabled in debug because some old versions of VS STL generate
